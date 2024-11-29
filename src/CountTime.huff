@@ -14,5 +14,39 @@
 
 
 #define macro MAIN() = takes(0) returns(0) {
+  0x00 calldataload
+  0xe0 shr
+  dup1 __FUNC_SIG(getTimeElapsed) eq get_time_elapsed jumpi
+  dup1 __FUNC_SIG(getTimeUntil) eq get_time_until jumpi
+  0x00 0x00 revert
 
+  get_time_elapsed:
+    GET_TIME_ELAPSED()
+
+  get_time_until:
+    GET_TIME_UNTIL()
+
+  return_result:
+    0x20 0x00 return
+}
+
+#define macro GET_DIFF() = takes(2) returns(0) {
+  dup2
+  dup2
+  lt
+  return_result jumpi
+  sub
+  0x00 mstore
+}
+
+#define macro GET_TIME_ELAPSED() = takes(0) returns(0) {
+  0x04 calldataload
+  timestamp
+  GET_DIFF()
+}
+
+#define macro GET_TIME_UNTIL() = takes(0) returns(0) {
+  timestamp
+  0x04 calldataload
+  GET_DIFF()
 }
