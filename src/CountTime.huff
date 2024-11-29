@@ -17,7 +17,7 @@
   0x00 calldataload
   0xe0 shr
   dup1 __FUNC_SIG(getTimeElapsed) eq get_time_elapsed jumpi
-  dup1 __FUNC_SIG(getTimeUntil) eq get_time_until jumpi
+  __FUNC_SIG(getTimeUntil) eq get_time_until jumpi
   0x00 0x00 revert
 
   get_time_elapsed:
