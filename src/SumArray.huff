@@ -12,5 +12,32 @@
 
 
 #define macro MAIN() = takes(0) returns(0) {
+  0x00 calldataload 0xe0 shr
+  __FUNC_SIG(sumArray) eq sum_array jumpi
+  0x00 0x00 revert
 
+  sum_array:
+    SUM_ARRAY()
+
+  return_result:
+    0x00 mstore
+    0x20 0x00 return
+}
+
+#define macro SUM_ARRAY() = takes(0) returns(0) {
+  0x44                      // [offset]
+  0x00                      // [current_sum, offset]
+
+  iteration:
+    dup2 calldatasize
+    eq return_result jumpi
+    ITERATION()
+}
+
+#define macro ITERATION() = takes(2) returns(2) {
+  // Starting stack:           [current_sum, offset]
+  dup2 calldataload         // [next_number, current_sum, offset]
+  add                       // [new_sum, offset]
+  swap1 0x20 add swap1      // [new_sum, next_offset]
+  iteration jump 
 }
