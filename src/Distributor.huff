@@ -10,9 +10,39 @@
  *  NOTICE: The contract should revert when an unrecognized function is called
  */
 
- #define function distribute(address[]) payable returns()
+#define function distribute(address[]) payable returns()
 
 
- #define macro MAIN() = takes(0) returns(0) {
-   
- }
+#define macro MAIN() = takes(0) returns(0) {
+  0x00 calldataload 0xe0 shr
+  __FUNC_SIG(distribute) eq distribute jumpi
+
+  fail:
+    0x00 0x00 revert
+
+  distribute:
+    DISTRIBUTE()
+
+  end:
+    stop
+}
+
+#define macro DISTRIBUTE() = takes(0) returns(0) {
+  calldatasize 0x45 gt fail jumpi
+  0x24 calldataload callvalue div   // [amount_to_send]
+  0x44                              // [current_offset, amount_to_send]
+
+  iteration:
+    dup1 calldatasize 
+    eq end jumpi
+    ITERATION()
+}
+
+#define macro ITERATION() = takes(2) returns(2) {
+  0x00 0x00 0x00 0x00               // [argsOffset, argsSize, retOffset, retSize, current_offset, amount_to_send]
+  dup6                              // [value, argsOffset, argsSize, retOffset, retSize, current_offset, amount_to_send]
+  dup6 calldataload gas             // [gas, address, value, argsOffset, argsSize, retOffset, retSize, current_offset, amount_to_send]
+  call pop                          // [current_offset, amount_to_send]
+  0x20 add                          // [next_offset, amount_to_send]
+  iteration jump
+}
