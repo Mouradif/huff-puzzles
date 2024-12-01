@@ -1,6 +1,6 @@
-/** 
+/**
  *  BASIC_BANK HUFF EXERCISE
- *  
+ *
  *  The task is to create a basic bank with huff
  * functionalities include
  *      - depositing tokens via similar to how solidity's `receive` function works

@@ -1,4 +1,4 @@
-/** 
+/**
  *  MY_CREATOR HUFF EXERCISE
  *
  *  The task is to write within the `MAIN` and `CONSTRUCTOR` macros below.
@@ -10,7 +10,6 @@
  */
 
 #define function getMyCreator() payable returns(address)
-
 
 // STORAGE
 #define constant DEPLOYER = FREE_STORAGE_POINTER()

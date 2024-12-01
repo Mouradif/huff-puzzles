@@ -1,7 +1,6 @@
- 
-/** 
+/**
  *  DISTRIBUTE HUFF EXERCISE
- *  
+ *
  *  The task is to enable this contract, when called with function `distribute(address[])` to
  *  distribute the value sent with the call to each address in the address array as evenly.
  *  Revert if array length is 0
@@ -11,7 +10,6 @@
  */
 
 #define function distribute(address[]) payable returns()
-
 
 #define macro MAIN() = takes(0) returns(0) {
   0x00 calldataload 0xe0 shr
@@ -33,7 +31,7 @@
   0x44                              // [current_offset, amount_to_send]
 
   iteration:
-    dup1 calldatasize 
+    dup1 calldatasize
     eq end jumpi
     ITERATION()
 }

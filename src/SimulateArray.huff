@@ -1,15 +1,14 @@
-
-/** 
+/**
  *  SUM_ARRAY HUFF EXERCISE
  *
- * In this puzzle, the task is to simulate an array in Huff using the "exact" storage pattern as solidity. Expected functions can; 
- *      - Push numbers onto a array, 
+ * In this puzzle, the task is to simulate an array in Huff using the "exact" storage pattern as solidity. Expected functions can;
+ *      - Push numbers onto a array,
  *      - Pop the last index from the array,
- *      - View what's stored at an index, 
- *      - Gets the length of the array, 
+ *      - View what's stored at an index,
+ *      - Gets the length of the array,
  *      - Write to an index if it is valid.
  *
- *      - Writes and reads outside of length revert. 
+ *      - Writes and reads outside of length revert.
  *      - Popping off a zero length array reverts.
  *
  *  NOTICE: The contract should revert when an unrecognized function is called
@@ -44,7 +43,7 @@
 
   length:
     LENGTH()
-  
+
   write:
     WRITE()
 
@@ -55,7 +54,6 @@
   zero_array:
     __ERROR("ZeroArray()") 0x00 mstore
     0x04 0x1c revert
-    
 }
 
 #define macro PUSHH() = takes(0) returns(0) {
